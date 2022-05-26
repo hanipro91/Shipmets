@@ -1,0 +1,123 @@
+﻿@model ShipmentTracking.Models.Shipments
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Dictionary<string, object> Locations = (Dictionary<string, object>)ViewData["Sources"];
+    System.Text.Json.JsonElement Sources = (System.Text.Json.JsonElement)Locations["Sources"];
+    System.Text.Json.JsonElement Targets = (System.Text.Json.JsonElement)Locations["Targets"];
+
+    string country = (string)ViewData["Country"];
+    string city = (string)ViewData["City"];
+}
+
+<h2> <img src="~/images/shipment.png" class="logo-48" /> Add Shipment</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Source" class="control-label"></label>
+                <select asp-for="Source" class="form-control" id="Sources">
+                    @foreach (var S in Sources.EnumerateObject())
+                    {
+                        <option>@S.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="Source" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="location" class="control-label">Source Location</label>
+                <select asp-for="location" class="form-control" id="Locs" onchange="setDaysPrice()">
+                    @foreach (var S in Sources.EnumerateObject())
+                    {
+                        <optgroup label="@S.Name">
+                            @foreach (var L in S.Value.GetProperty("Locations").EnumerateObject())
+                            {
+                                <option>@L.Name</option>
+                            }
+                        </optgroup>
+                    }
+                </select>
+                <span asp-validation-for="location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" type="text" class="form-control" readonly value="@DateTime.Now" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExepectedEstmatedTime" class="control-label">Estimate Days</label>
+                <input asp-for="ExepectedEstmatedTime" class="form-control" readonly value="1" id="eDays" />
+                <span asp-validation-for="ExepectedEstmatedTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="RealEstmatedTime" class="form-control" type="hidden" value="0" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Weight" class="control-label"></label>
+                <input asp-for="Weight" class="form-control" id="Weight" onchange="setDaysPrice()" />
+                <span asp-validation-for="Weight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" id="Price" readonly />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+
+    </div>
+</div>
+@if (ViewData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error:</strong> @ViewData["Error"]
+    </div>
+}
+    <div>
+        <span class="glyphicon glyphicon-arrow-left"></span>
+        <a asp-action="Index">Back to List</a>
+    </div>
+<div style="display:none">
+    <div id="SrcData">
+        @Locations["Sources"]
+    </div>
+</div>
+<script>
+
+    Sources.onchange = e => {
+        for (let i = 0; i < Locs.children.length; i++)
+            Locs.children[i].style.display = 'none'
+
+        Locs.children[Sources.selectedIndex].style.display = 'list-item'
+        setDaysPrice();
+    }
+
+
+    let Locations = JSON.parse(SrcData.innerHTML);
+
+    console.log(Locations);
+
+    const setDaysPrice = () => {
+        let d = Locations[Sources.value].Locations[Locs.value].Distances['@country'],
+            c = @Targets.GetProperty(country).GetProperty("Cost").GetSingle() +
+                @Targets.GetProperty(country).GetProperty("Cities").EnumerateArray().First(x => x.GetProperty("Name").GetString() == city).GetProperty("Cost").GetSingle();
+        d = (d / 10).toFixed(0);
+        eDays.value = d
+        c = (c + d * 0.5 * Weight.value).toFixed(2);
+        Price.value = c;
+    }
+
+
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

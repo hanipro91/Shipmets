@@ -1,0 +1,91 @@
+﻿@model IEnumerable<ShipmentTracking.Models.Shipments>
+
+@{
+    ViewData["Title"] = "Shapments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2><img src="~/images/shipment.png" class="logo-48" /> Your Shipments</h2>
+
+<p>
+    <a asp-action="Create">Add Shipment</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Source)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th title="Time expected for shipment to deliver to it's dsitenation.">
+                @Html.DisplayNameFor(model => model.ExepectedEstmatedTime)
+            </th>
+            <th title="Real duration time in days that spent to deliver shipment.">
+                @Html.DisplayNameFor(model => model.RealEstmatedTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Weight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                <img src="~/images/@Program.GetSourceLogo(item.Source)" width="40" />
+                @Html.DisplayFor(modelItem => item.Source)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td title="Time expected for shipment to deliver to it's dsitenation.">
+                @Html.DisplayFor(modelItem => item.ExepectedEstmatedTime) day(s)
+            </td>
+            <td title="Real duration time in days that spent to deliver shipment.">
+                @Html.DisplayFor(modelItem => item.RealEstmatedTime) day(s)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weight) K.G.
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <span class="glyphicon glyphicon-file"></span>
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <span class="glyphicon glyphicon-trash"></span>
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+    }
+}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Number Of Shipments</th>
+            <td>@ViewData["Count"]</td>
+        </tr>
+    </tfoot>
+</table>

@@ -1,0 +1,72 @@
+﻿@model ShipmentTracking.Models.Shipments
+
+@{
+    ViewData["Title"] = "Edit Shipment";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>EditShipment</h2>
+
+<h4>Shipments</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditShipment">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="Source" class="control-label"></label> <br />
+                <img src="~/images/@Program.GetSourceLogo(Model.Source)" class="img-thumbnail" height="60" width="60" />
+                @Html.DisplayFor(m => m.Source)
+            </div>
+            <div class="form-group">
+                <label asp-for="location" class="control-label"></label> <br />
+                @Html.DisplayFor(m => m.location)
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label><br />
+                @Html.DisplayFor(m => m.Date)
+            </div>
+            <div class="form-group">
+                <label asp-for="ExepectedEstmatedTime" class="control-label"></label><br />
+                @Html.DisplayFor(m => m.ExepectedEstmatedTime) days
+            </div>
+            <div class="form-group">
+                <label class="control-label">Exprected Deliver Date</label><br />
+                @Html.DisplayFor(m => m.ExpectedDeleiverDate)
+            </div>
+            <div class="form-group">
+                <label asp-for="RealEstmatedTime" class="control-label"></label>
+                <input asp-for="RealEstmatedTime" class="form-control" /> days
+                <span asp-validation-for="RealEstmatedTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Deliver Date</label><br />
+                @Html.DisplayFor(m => m.DeleiveredDate)
+            </div>
+            <div class="form-group">
+                <label asp-for="Weight" class="control-label"></label>
+                <br />@Html.DisplayFor(m => m.Weight) K.G.
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <br />$@Html.DisplayFor(m => m.Price)
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomersID" class="control-label"></label>
+                <br />@Html.DisplayFor(m => m.CustomersID)
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Shipments">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

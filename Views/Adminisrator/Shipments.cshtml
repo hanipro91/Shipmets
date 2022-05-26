@@ -1,0 +1,67 @@
+﻿@model IEnumerable<ShipmentTracking.Models.Shipments>
+
+@{ 
+    ViewData["Title"] = "Shipments";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Source)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExepectedEstmatedTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RealEstmatedTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Weight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <img src="~/images/@Program.GetSourceLogo(item.Source)" class="img-thumbnail" width="40" />
+                @Html.DisplayFor(modelItem => item.Source)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExepectedEstmatedTime) days
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RealEstmatedTime) days
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weight) K.G.
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <a asp-action="EditShipment" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="ShipmentDetails" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="DeleteShipment" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

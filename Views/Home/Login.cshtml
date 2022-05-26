@@ -1,0 +1,103 @@
+﻿@{
+    ViewData["Title"] = "Log In";
+
+    Users admin = (Users) ViewData["Admin"];
+    Customers cust = (Customers) ViewData["Customer"];
+}
+
+<style>
+    .login-chooser > div{
+        font-family:Arial, Helvetica, sans-serif;
+        border-bottom:2px solid lightgray;
+        line-height:1;
+    }
+    .login-chooser h3{font-size:30px}
+    .login-chooser p {
+        font-size: 20px
+    }
+    .login-chooser a {
+        display: flex;
+        padding:5px;
+        text-decoration:solid;
+    }
+    .login-chooser img{
+        height:130px;
+        width:130px;
+        margin-right:12px;
+    }
+    .login-chooser > div:last-child{border-bottom:none;}
+</style>
+<div class="row">
+    <div class="col-md-8 login">
+        <h2 class="well">
+            <img src="~/images/lock.png" />
+            Log in
+        </h2>
+        @if (cust != null || admin != null)
+        {
+        <div class="well login-chooser">
+            <h2>Choose An Account</h2>
+            @if (cust != null)
+            {
+                <div>
+                    <a href="~/">
+                        <img src="@cust.Picture" class="thumbnail" />
+                        <div>
+                            <h3>@cust.Name</h3>
+                            <p>@cust.Email</p>
+                        </div>
+                    </a>
+                </div>
+            }
+            @if (admin != null)
+            {
+                <div>
+                    <a href="~/Adminisrator/">
+                        <img src="@admin.Picture" class="thumbnail" />
+                        <div>
+                            <h3>@admin.Name</h3>
+                            <p>@admin.UserName</p>
+                            <p>@admin.Email</p>
+                        </div>
+                    </a>
+                </div>
+            }
+
+            @if (cust == null || admin == null)
+            {
+                <div>
+                    <a href="#" onclick="$(this.parentNode.parentNode).fadeOut(() => { $(forms[0]).fadeIn(); this.parentNode.parentNode.remove(); }) ">
+                        <img src="~/images/avatar.png" class="thumbnail" />
+                        <div>
+                            <h3>Another Account</h3>
+                            <p>Admin Account</p>
+                            <p>Customer Account</p>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+        }
+        <form method="post" class="well" style="display:@(cust == null && admin == null? "block":"none" )">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <input type="text" class="form-control" name="user" placeholder="Email Address">
+            </div>
+            <div style="padding:5px"></div>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                <input type="password" class="form-control" name="password" placeholder="Password">
+            </div>
+            <div style="padding:5px">
+                <button class="btn btn-primary">Log in</button>
+            </div>
+        </form>
+        @if (ViewData["Error"] != null)
+        {
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error:</strong> @ViewData["Error"]
+        </div>
+        }
+    </div>
+</div>

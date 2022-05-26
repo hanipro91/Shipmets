@@ -1,0 +1,74 @@
+﻿@model ShipmentTracking.Models.Shipments
+
+@{
+    ViewData["Title"] = "Shipment Details";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>ShipmentDetails</h2>
+
+<div>
+    <h4>Shipments</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Source)
+        </dt>
+        <dd>
+            <img src="~/images/@Program.GetSourceLogo(Model.Source)" class="img-thumbnail" height="60" width="60" />
+            @Html.DisplayFor(model => model.Source)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.location)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.location)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExepectedEstmatedTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExepectedEstmatedTime) days
+        </dd>
+        <dt>
+            Expected Deliver Date
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExpectedDeleiverDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RealEstmatedTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RealEstmatedTime) days
+        </dd>
+        <dt>
+            Deliver Date
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DeleiveredDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Weight)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Weight) K.G.
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd>
+           $@Html.DisplayFor(model => model.Price)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="EditShipment" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Shipments">Back to List</a>
+</div>

@@ -1,0 +1,142 @@
+﻿@model ShipmentTracking.Models.Customers
+
+@{
+    ViewData["Title"] = "EditAccount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>EditAccount</h2>
+
+<h4>Customers</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditAccount">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BirthDate" class="control-label"></label>
+                <input asp-for="BirthDate" class="form-control" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sex" class="control-label"></label>
+                <select asp-for="Sex" class="form-control">
+                    <option value="Male">Male</option>
+                    <option value="Femal">Femal</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Country" class="control-label"></label>
+                <input asp-for="Country" class="form-control" />
+                <select asp-for="Country" class="form-control" id="Countries">
+                    <option value="Iraq">Iraq</option>
+                    <option value="Syria">Syria</option>
+                    <option value="Jordan">Jordan</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <select asp-for="City" class="form-control" id="Cities">
+                    <optgroup label="Iraq">
+                        <option>Baghdad</option>
+                        <option>Karblaa</option>
+                        <option>Karkook</option>
+                        <option>Basrah</option>
+                        <option>Moosel</option>
+                        <option>Saladin</option>
+                        <option>Falooja</option>
+                        <option>Baquba</option>
+                        <option>Sulimania</option>
+                        <option>Babelon</option>
+                        <option>Erbil</option>
+                        <option>Nassria</option>
+                        <option>Najef</option>
+                        <option>Emaraa</option>
+                        <option>Dewania</option>
+                        <option>Dehooq</option>
+                        <option>Hilla</option>
+                    </optgroup>
+                    <optgroup label="Syria">
+                        <option>Latakia</option>
+                        <option>Idlib</option>
+                        <option>Aleppo</option>
+                        <option>Raqqa</option>
+                        <option>Al-Hasakah</option>
+                        <option>Tartus</option>
+                        <option>Hama</option>
+                        <option>Deir ez-Zor</option>
+                        <option>Homs</option>
+                        <option>Damascus</option>
+                        <option>Rif Dimashq</option>
+                        <option>Quneitra</option>
+                        <option>Daraa</option>
+                        <option>Al-Suwayda</option>
+                    </optgroup>
+                    <optgroup label="Jordan">
+                        <option>Amman</option>
+                        <option>Zarqa</option>
+                        <option>Irbid</option>
+                        <option>Russeifa</option>
+                        <option>Al Quwaysimah</option>
+                        <option>Tila al-Ali</option>
+                        <option>Wadi al-Seer</option>
+                        <option>Al Jubayhah</option>
+                        <option>Khuraybat as-Suq</option>
+                        <option>Sahab</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Picture" class="control-label"></label>
+                <img class="img-thumbnail" src="@Model.Picture" height="200" onclick="LoadImage(this)" onload="hPic.value=src" />
+                <input asp-for="Picture" type="hidden" class="form-control" id="hPic" value="@Model.Picture" />
+                <span asp-validation-for="Picture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (ViewData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error:</strong> @ViewData["Error"]
+    </div>
+}
+
+<div>
+    <a asp-action="Account">Back</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

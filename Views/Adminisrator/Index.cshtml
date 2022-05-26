@@ -1,0 +1,95 @@
+﻿@model ShipmentTracking.Models.Users
+
+@{
+
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Shipment - Administrator</title>
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+    <style>
+        .row img{
+            width:350px;
+        }
+        .row a{
+            text-decoration:solid;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Shipments Management System - Administrator</h1>
+        <div class="row">
+            <a class="col-md-4" href="~/Users/">
+                <img src="~/images/users.png" class="img-thumbnail" />
+                <h3>Users</h3>
+                <p>Manage System Administrators Users, add, delete, edit or create new user.</p>
+            </a>
+            <a class="col-md-4" href="~/Adminisrator/Shipments">
+                <img src="~/images/shipment.png" class="img-thumbnail" />
+                <h3>Shipments</h3>
+                <p>Manage Customer's Shipments add, delete, edit or create new shipment.</p>
+            </a>
+            <a class="col-md-4" href="~/Customers/">
+                <img src="~/images/customers.png" class="img-thumbnail" />
+                <h3>Customers</h3>
+                <p>Manage Customer's Accounts, add, delete, edit or create new account.</p>
+            </a>
+        </div>
+        <div class="row">
+            <a class="col-md-4" href="#">
+                <img src="@Model.Picture" class="img-thumbnail" />
+                <h3>Account</h3>
+                <p>@Model.Name</p>
+                <p>@Model.UserName</p>
+            </a>
+            <a class="col-md-4" href="~/Home/Logout">
+                <img src="~/images/logout.png" class="img-thumbnail" />
+                <h3>Log out</h3>
+                <p>Log out from this account (admin account).</p>
+            </a>
+            <a class="col-md-4" href="~/Home/Login">
+                <img src="~/images/login.png" class="img-thumbnail" />
+                <h3>Log in with deffrent account</h3>
+                <p>Go to log in page to log in with deffrent user or customer account.</p>
+            </a>
+        </div>
+    </div>
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/js/element.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+</body>
+</html>
